@@ -1,8 +1,8 @@
-# Elasticsearch/OpenSearch MCP Server
+# Elasticsearch MCP Server
 
 ## Overview
 
-A Model Context Protocol (MCP) server implementation that provides Elasticsearch and OpenSearch interaction. This server enables searching documents, analyzing indices, and managing cluster through a set of tools.
+A Model Context Protocol (MCP) server implementation that provides Elasticsearch interaction. This server enables searching documents, analyzing indices, and managing cluster through a set of tools.
 
 ## Features
 
@@ -37,18 +37,17 @@ A Model Context Protocol (MCP) server implementation that provides Elasticsearch
 
 Copy the `.env.example` file to `.env` and update the values accordingly.
 
-## Start Elasticsearch/OpenSearch Cluster
+## Start Elasticsearch Cluster
 
-Start the Elasticsearch/OpenSearch cluster using Docker Compose:
+Start the Elasticsearch cluster using Docker Compose:
 
 ```bash
-# For Elasticsearch
 docker-compose -f docker-compose-elasticsearch.yml up -d
 ```
 
-The default Elasticsearch username is `elastic` and password is `test123`. The default OpenSearch username is `admin` and password is `admin`.
+The default Elasticsearch username is `elastic` and password is `test123`.
 
-You can access Kibana/OpenSearch Dashboards from http://localhost:5601.
+You can access Kibana from http://localhost:5601.
 
 ## Usage with Claude Desktop
 
@@ -57,7 +56,6 @@ You can access Kibana/OpenSearch Dashboards from http://localhost:5601.
 Using `uv` requires cloning the repository locally and specifying the path to the source code. Add the following configuration to Claude Desktop's config file `claude_desktop_config.json`.
 
 ```json
-// For Elasticsearch
 {
   "mcpServers": {
     "elasticsearch-mcp-server": {
@@ -83,7 +81,7 @@ Using `uv` requires cloning the repository locally and specifying the path to th
 
 Restart Claude Desktop to load the new MCP server.
 
-Now you can interact with your Elasticsearch/OpenSearch cluster through Claude using natural language commands like:
+Now you can interact with your Elasticsearch cluster through Claude using natural language commands like:
 - "List all indices in the cluster"
 - "How old is the student Bob?"
 - "Show me the cluster health status"

@@ -7,19 +7,18 @@ from src.clients.common.index import IndexClient
 
 class SearchClient(IndexClient, DocumentClient, ClusterClient, AliasClient):
     """
-    Unified search client that combines all search functionality.
+    Unified Elasticsearch client that combines all search functionality.
     
     This class uses multiple inheritance to combine all specialized client implementations
     (index, document, cluster, alias) into a single unified client.
     """
     
-    def __init__(self, config: Dict, engine_type: str):
+    def __init__(self, config: Dict):
         """
-        Initialize the search client.
+        Initialize the Elasticsearch client.
         
         Args:
             config: Configuration dictionary with connection parameters
-            engine_type: Type of search engine to use ("elasticsearch" or "opensearch")
         """
-        super().__init__(config, engine_type)
-        self.logger.info(f"Initialized the {engine_type} client")
+        super().__init__(config)
+        self.logger.info("Initialized the Elasticsearch client")

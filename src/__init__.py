@@ -1,6 +1,6 @@
 """
-Search MCP Server package.
+Elasticsearch MCP Server package.
 """
-from src.server import elasticsearch_mcp_server, run_search_server
+from src.server import elasticsearch_mcp_server
 
-__all__ = ['elasticsearch_mcp_server', 'run_search_server']
+__all__ = ['elasticsearch_mcp_server']
