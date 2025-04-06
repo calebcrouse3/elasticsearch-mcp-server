@@ -1,16 +1,8 @@
 # Elasticsearch/OpenSearch MCP Server
 
-[![smithery badge](https://smithery.ai/badge/elasticsearch-mcp-server)](https://smithery.ai/server/elasticsearch-mcp-server)
-
 ## Overview
 
 A Model Context Protocol (MCP) server implementation that provides Elasticsearch and OpenSearch interaction. This server enables searching documents, analyzing indices, and managing cluster through a set of tools.
-
-<a href="https://glama.ai/mcp/servers/b3po3delex"><img width="380" height="200" src="https://glama.ai/mcp/servers/b3po3delex/badge" alt="Elasticsearch MCP Server" /></a>
-
-## Demo
-
-https://github.com/user-attachments/assets/f7409e31-fac4-4321-9c94-b0ff2ea7ff15
 
 ## Features
 
@@ -52,9 +44,6 @@ Start the Elasticsearch/OpenSearch cluster using Docker Compose:
 ```bash
 # For Elasticsearch
 docker-compose -f docker-compose-elasticsearch.yml up -d
-
-# For OpenSearch
-docker-compose -f docker-compose-opensearch.yml up -d
 ```
 
 The default Elasticsearch username is `elastic` and password is `test123`. The default OpenSearch username is `admin` and password is `admin`.
@@ -63,55 +52,7 @@ You can access Kibana/OpenSearch Dashboards from http://localhost:5601.
 
 ## Usage with Claude Desktop
 
-### Option 1: Installing via Smithery
-
-To install Elasticsearch Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/elasticsearch-mcp-server):
-
-```bash
-npx -y @smithery/cli install elasticsearch-mcp-server --client claude
-```
-
-### Option 2: Using uvx
-
-Using `uvx` will automatically install the package from PyPI, no need to clone the repository locally. Add the following configuration to Claude Desktop's config file `claude_desktop_config.json`.
-
-```json
-// For Elasticsearch
-{
-  "mcpServers": {
-    "elasticsearch-mcp-server": {
-      "command": "uvx",
-      "args": [
-        "elasticsearch-mcp-server"
-      ],
-      "env": {
-        "ELASTICSEARCH_HOST": "https://localhost:9200",
-        "ELASTICSEARCH_USERNAME": "elastic",
-        "ELASTICSEARCH_PASSWORD": "test123"
-      }
-    }
-  }
-}
-
-// For OpenSearch
-{
-  "mcpServers": {
-    "opensearch-mcp-server": {
-      "command": "uvx",
-      "args": [
-        "opensearch-mcp-server"
-      ],
-      "env": {
-        "OPENSEARCH_HOST": "https://localhost:9200",
-        "OPENSEARCH_USERNAME": "admin",
-        "OPENSEARCH_PASSWORD": "admin"
-      }
-    }
-  }
-}
-```
-
-### Option 3: Using uv with local development
+### Using uv with local development
 
 Using `uv` requires cloning the repository locally and specifying the path to the source code. Add the following configuration to Claude Desktop's config file `claude_desktop_config.json`.
 
@@ -131,26 +72,6 @@ Using `uv` requires cloning the repository locally and specifying the path to th
         "ELASTICSEARCH_HOST": "https://localhost:9200",
         "ELASTICSEARCH_USERNAME": "elastic",
         "ELASTICSEARCH_PASSWORD": "test123"
-      }
-    }
-  }
-}
-
-// For OpenSearch
-{
-  "mcpServers": {
-    "opensearch-mcp-server": {
-      "command": "uv",
-      "args": [
-        "--directory",
-        "path/to/src/elasticsearch_mcp_server",
-        "run",
-        "opensearch-mcp-server"
-      ],
-      "env": {
-        "OPENSEARCH_HOST": "https://localhost:9200",
-        "OPENSEARCH_USERNAME": "admin",
-        "OPENSEARCH_PASSWORD": "admin"
       }
     }
   }
