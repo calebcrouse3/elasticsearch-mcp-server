@@ -32,10 +32,10 @@ class ElasticsearchMCPServer:
         # Define all tool classes to register
         tool_classes = [
             IndexTools,
-            DocumentTools,
-            ClusterTools,
-            AliasTools
-        ]        
+            #DocumentTools,
+            #ClusterTools,
+            #AliasTools
+        ]    
         # Register all tools
         register.register_all_tools(tool_classes)
 
