@@ -16,16 +16,17 @@ def create_search_client() -> SearchClient:
     load_dotenv()
     
     # Get configuration from environment variables
-    hosts_str = os.environ.get("ELASTICSEARCH_HOSTS", "https://localhost:9200")
-    hosts = [host.strip() for host in hosts_str.split(",")]
+    host = os.environ.get("ELASTICSEARCH_HOST")
     username = os.environ.get("ELASTICSEARCH_USERNAME")
     password = os.environ.get("ELASTICSEARCH_PASSWORD")
+    api_key = os.environ.get("ELASTICSEARCH_API_KEY")
     verify_certs = os.environ.get("ELASTICSEARCH_VERIFY_CERTS", "false").lower() == "true"
     
     config = {
-        "hosts": hosts,
+        "host": host,
         "username": username,
         "password": password,
+        "api_key": api_key,
         "verify_certs": verify_certs
     }
     
