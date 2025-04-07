@@ -1,9 +1,11 @@
 import functools
 import logging
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, Any
 
 from fastmcp import FastMCP
 from mcp.types import TextContent
+
+# Removed import of ElasticsearchTools to fix circular dependency
 
 T = TypeVar('T')
 
@@ -28,7 +30,7 @@ def handle_search_exceptions(func: Callable[..., T]) -> Callable[..., list[TextC
     
     return wrapper
 
-def with_exception_handling(tool_instance: object, mcp: FastMCP) -> None:
+def with_exception_handling(tool_instance: "Any", mcp: FastMCP) -> None:
     """
     Register tools from a tool instance with automatic exception handling applied to all tools.
     

@@ -3,11 +3,8 @@ import sys
 
 from fastmcp import FastMCP
 
-from src.clients import create_search_client
-from src.tools.alias import AliasTools
-from src.tools.cluster import ClusterTools
-from src.tools.document import DocumentTools
-from src.tools.index import IndexTools
+from src.client import create_elasticsearch_client
+from src.tools.elasticsearch import ElasticsearchTools
 from src.tools.register import ToolsRegister
 
 class ElasticsearchMCPServer:
@@ -19,7 +16,7 @@ class ElasticsearchMCPServer:
         self.logger.info(f"Initializing {self.name}...")
         
         # Create the Elasticsearch client
-        self.search_client = create_search_client()
+        self.elasticsearch_client = create_elasticsearch_client()
         
         # Initialize tools
         self._register_tools()
@@ -27,17 +24,10 @@ class ElasticsearchMCPServer:
     def _register_tools(self):
         """Register all MCP tools."""
         # Create a tools register
-        register = ToolsRegister(self.logger, self.search_client, self.mcp)
-        
-        # Define all tool classes to register
-        tool_classes = [
-            IndexTools,
-            #DocumentTools,
-            #ClusterTools,
-            #AliasTools
-        ]    
+        register = ToolsRegister(self.logger, self.elasticsearch_client, self.mcp)
+
         # Register all tools
-        register.register_all_tools(tool_classes)
+        register.register_tools(ElasticsearchTools)
 
     def run(self):
         """Run the MCP server."""
