@@ -1,7 +1,6 @@
-from typing import Dict, Optional, List
+from typing import Dict, List
 
 from fastmcp import FastMCP
-import logging
 from src.client import ElasticsearchClient
 
 class ElasticsearchTools:
@@ -12,62 +11,21 @@ class ElasticsearchTools:
 
         @mcp.tool()
         def list_indices() -> List[Dict]:
-            """List all indices."""
+            """List all indices with document count and store size."""
             return self.elasticsearch_client.list_indices()
+        
+        @mcp.tool()
+        def list_data_streams() -> Dict:
+            """Get data stream information."""
+            return self.elasticsearch_client.list_data_streams()
 
         @mcp.tool()
-        def get_index(index: str) -> Dict:
+        def search_documents(index: str, query: dict) -> Dict:
             """
-            Returns information (mappings, settings, aliases) about one or more indices.
-            
+            Search for documents.
+
             Args:
-                index: Name of the index
+                index: Name of the index or an index pattern
+                query: Search query as a python dict. 
             """
-            return self.elasticsearch_client.get_index(index=index)
-
-        # @mcp.tool()
-        # def search_documents(index: str, body: Dict) -> Dict:
-        #     """
-        #     Search for documents.
-            
-        #     Args:
-        #         index: Name of the index
-        #         body: Search query
-        #     """
-        #     return self.elasticsearch_client.search_documents(index=index, body=body)
-
-        # @mcp.tool()
-        # def get_document(index: str, id: str) -> Dict:
-        #     """
-        #     Get a document by ID.
-            
-        #     Args:
-        #         index: Name of the index
-        #         id: Document ID
-        #     """
-        #     return self.elasticsearch_client.get_document(index=index, id=id)
-        
-        # @mcp.tool()
-        # def get_cluster_health() -> Dict:
-        #     """Returns basic information about the health of the cluster."""
-        #     return self.elasticsearch_client.get_cluster_health()
-
-        # @mcp.tool()
-        # def get_cluster_stats() -> Dict:
-        #     """Returns high-level overview of cluster statistics."""
-        #     return self.elasticsearch_client.get_cluster_stats()
-        
-        # @mcp.tool()
-        # def list_aliases() -> List[Dict]:
-        #     """List all aliases."""
-        #     return self.elasticsearch_client.list_aliases()
-
-        # @mcp.tool()
-        # def get_alias(index: str) -> Dict:
-        #     """
-        #     Get alias information for a specific index.
-
-        #     Args:
-        #         index: Name of the index
-        #     """
-        #     return self.elasticsearch_client.get_alias(index=index)
+            return self.elasticsearch_client.search(index=index, query=query)

@@ -1,6 +1,6 @@
 import logging
 import warnings
-from typing import Dict, cast
+from typing import Dict
 
 class ElasticsearchClient():
     def __init__(self, config: Dict):
@@ -42,19 +42,23 @@ class ElasticsearchClient():
             request_timeout=30
         )
         self.logger.info(f"Elasticsearch client initialized with host: {host}")
-        
-    # These dont actually return dicts. The cat is a TextApiResponse.
+
     def list_indices(self) -> list[dict]:
         """List all indices."""
         resp = self.client.cat.indices(format="json")
+        index_names = [{"index": index['index'], "docs.count": index['docs.count'], "store.size": index['store.size']} for index in resp.body]
+        return index_names
+
+    def list_data_streams(self) -> Dict:
+        """Returns the data stream for an index."""
+        resp = self.client.indices.data_streams_stats()
         return resp.body
 
-    def get_index(self, index: str) -> Dict:
-        """Returns information (mappings, settings, aliases) about one or more indices."""
-        resp = self.client.indices.get(index=index)
-        return resp.body
+    def search(self, index: str, query: dict) -> Dict:
+        """Execute a search query."""
+        size = query.get("size", None)
+        if not size or size > 20:
+            return {"error": "Query size must be less than or equal to 20"}
 
-    # TODO: Implement this
-    def get_pipelines(self) -> Dict:
-        """Get all pipelines."""
-        pass
+        resp = self.client.search(index=index, body=query)
+        return resp.body

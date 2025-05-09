@@ -13,7 +13,7 @@ def create_elasticsearch_client() -> ElasticsearchClient:
     Returns:
         An Elasticsearch client instance
     """
-    # Load configuration from environment variables
+
     root_dir = Path(__file__).resolve().parents[2]
     env_path = os.path.join(root_dir, ".env")
     if os.path.exists(env_path):
@@ -21,13 +21,7 @@ def create_elasticsearch_client() -> ElasticsearchClient:
     else:
         raise FileNotFoundError(f"No .env file found at {env_path}")
 
-    # This might need to be here to make the env in the server definition work.  
-    # load_dotenv()
-
-    # Get configuration from environment variables
     host = os.environ.get("ELASTICSEARCH_HOST")
-    username = os.environ.get("ELASTICSEARCH_USERNAME")
-    password = os.environ.get("ELASTICSEARCH_PASSWORD")
     api_key = os.environ.get("ELASTICSEARCH_API_KEY")
     verify_certs = os.environ.get("ELASTICSEARCH_VERIFY_CERTS", "false").lower() == "true"
     
@@ -38,8 +32,6 @@ def create_elasticsearch_client() -> ElasticsearchClient:
 
     config = {
         "host": host,
-        "username": username,
-        "password": password,
         "api_key": api_key,
         "verify_certs": verify_certs
     }

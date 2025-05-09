@@ -1,5 +1,4 @@
 import logging
-from typing import List, Type
 
 from fastmcp import FastMCP
 
@@ -33,10 +32,6 @@ class ToolsRegister:
 
         self.logger.info(f"Registering tools from {tool_class.__name__}")
         tool_instance = tool_class(self.elasticsearch_client)
-        
-        # Overwrite logger and elasticsearch_client attributes
-        # tool_instance.logger = self.logger
-        # tool_instance.elasticsearch_client = self.elasticsearch_client
         
         # Register tools with automatic exception handling
         with_exception_handling(tool_instance, self.mcp)
